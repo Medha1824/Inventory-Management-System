@@ -1,0 +1,106 @@
+#include<stdio.h>
+struct Product{
+char name[100];
+int id;
+int quantity;
+};
+
+void add(struct Product *p);
+void view(struct Product p[],int a);
+void update(struct Product p[], int c);
+int remov(struct Product p[],int e);
+
+void add(struct Product *p)
+{
+           printf("\nEnter product name: ");
+           scanf("%s",p->name);
+            printf("Enter your product ID: ");
+           scanf("%d",&p->id);
+            printf("Enter Stock Quantity: ");
+           scanf("%d",&p->quantity);
+           printf("\nProduct added successfully!\n");
+           printf("\n-------------------------------------\n");
+}
+void view(struct Product p[],int a)
+{
+    int b=0;
+    printf("\nInventory List:\n");
+    printf("--------------------\n");
+    if(b==a)
+        printf("There is nothing in the inventory list.\n");
+    while(b<a){
+        printf("Product ID: %d, Name: %s, Stock: %d\n",p[b].id , p[b].name, p[b].quantity);
+        b++;
+    }
+        printf("\n-------------------------------------\n");
+}
+void update(struct Product p[], int c)
+{
+    int d,i;
+    printf("\nEnter product ID to update: ");
+    scanf("%d",&d);
+    for(i=0;i<c;i++){
+        if(d==p[i].id)
+            break;
+    }
+    if(i==c){
+        printf("ID not found!\nTry again!\n");
+        return;
+    }
+    printf("Enter new stock quantity: ");
+    scanf("%d",&p[i].quantity);
+    printf("\nStock updated successfully!\n");
+    printf("\n----------------------------------\n");
+}
+int remov(struct Product p[],int e)
+{
+    int f,j;
+    printf("\nEnter Product ID to remove: ");
+    scanf("%d",&f);
+    for(j=0;j<e;j++){
+        if(f==p[j].id)
+            break;
+    }
+   if(j==e){
+        printf("ID not found!\nTry again!\n");
+        return e;
+    }
+    for(int k=j;k<e-1;k++){
+        p[k]=p[k+1];
+    }
+    e--;
+    printf("Product removed successfully!\n");
+    printf("\n-----------------------------------\n");
+    return e;
+}
+ int main()
+ {
+     int n,i=0;
+     struct Product pr[20];
+     printf("Inventory Management System\n==============================");
+     while(1){
+        printf("\n1.Add Product\n2.View Inventory\n3.Update Stock Quantity\n4.Remove Product\n5.Exit\nEnter your choice:");
+        scanf("%d",&n);
+        if(n==1){
+           add(&pr[i]);
+           i++;
+        }
+        else if(n==2){
+            view(pr,i);
+        }
+        else if(n==3){
+            update(pr,i);
+        }
+        else if(n==4){
+             int x=remov(pr,i);
+             i=x;
+        }
+        else if(n==5)
+            break;
+        else
+            printf("\nInvalid Entry! Try again....\n");
+     }
+     printf("\nExiting the system...");
+     printf("\nThank you for using the Inventory Management System!\n");
+     return 0;
+ }
